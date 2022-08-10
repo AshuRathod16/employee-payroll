@@ -5,7 +5,6 @@ import com.bridgelabz.employeepayrollappdevelopment.dto.EmployeeDTO;
 import com.bridgelabz.employeepayrollappdevelopment.exception.EmployeeNotFoundException;
 import com.bridgelabz.employeepayrollappdevelopment.model.EmployeeModel;
 import com.bridgelabz.employeepayrollappdevelopment.repository.EmployeeRepository;
-import com.fasterxml.jackson.annotation.OptBoolean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +50,17 @@ public class EmployeeService implements IEmployeeService {
             return isEmployeePresent.get();
         } else {
             throw new EmployeeNotFoundException(400, "Employee is Not Found");
+        }
+    }
+
+    @Override
+    public EmployeeModel deleteEmployee(Long id) {
+        Optional<EmployeeModel> deleteEmployee = employeeRepository.findById(id);
+        if (deleteEmployee.isPresent()) {
+            employeeRepository.delete(deleteEmployee.get());
+            return deleteEmployee.get();
+        } else {
+            throw new EmployeeNotFoundException(400, "Employee Not Found");
         }
     }
 }
