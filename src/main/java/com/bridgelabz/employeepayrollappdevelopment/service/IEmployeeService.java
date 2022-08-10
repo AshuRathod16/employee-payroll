@@ -9,4 +9,6 @@ public interface IEmployeeService {
     EmployeeModel addEmployee(EmployeeDTO employeeDTO);
 
     List<EmployeeModel> getAllEmployeeData();
+
+    EmployeeModel updateEmployeeDetails(Long id, EmployeeDTO employeeDTO);
 }
