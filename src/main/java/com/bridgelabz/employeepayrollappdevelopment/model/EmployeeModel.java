@@ -19,6 +19,8 @@ public class EmployeeModel {
     private long salary;
     private String companyName;
     private String department;
+    private String emailId;
+    private String password;
     private LocalDateTime registerDate;
     private LocalDateTime updatedDate;
 
@@ -29,6 +31,8 @@ public class EmployeeModel {
         this.salary = employeeDTO.getAge();
         this.companyName = employeeDTO.getCompanyName();
         this.department = employeeDTO.getDepartment();
+        this.emailId = employeeDTO.getEmailId();
+        this.password = employeeDTO.getPassword();
     }
 
     public EmployeeModel() {

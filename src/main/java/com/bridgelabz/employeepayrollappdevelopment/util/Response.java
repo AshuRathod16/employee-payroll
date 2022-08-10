@@ -1,4 +1,4 @@
-package com.bridgelabz.employeepayrollappdevelopment.response;
+package com.bridgelabz.employeepayrollappdevelopment.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
 public class Response {
     private int errorCode;
     private String message;
-
+    private Object token;
     public Response() {
     }
 }

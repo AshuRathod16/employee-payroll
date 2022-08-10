@@ -1,7 +1,7 @@
 package com.bridgelabz.employeepayrollappdevelopment.exception.exceptionhandler;
 
 import com.bridgelabz.employeepayrollappdevelopment.exception.EmployeeNotFoundException;
-import com.bridgelabz.employeepayrollappdevelopment.response.Response;
+import com.bridgelabz.employeepayrollappdevelopment.util.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -10,4 +10,6 @@ public class EmployeeDTO {
     private long salary;
     private String companyName;
     private String department;
+    private String emailId;
+    private String password;
 }
