@@ -9,7 +9,7 @@ import java.util.List;
 public interface IEmployeeService {
     EmployeeModel addEmployee(EmployeeDTO employeeDTO);
 
-    List<EmployeeModel> getAllEmployeeData();
+    List<EmployeeModel> getAllEmployeeData(String token);
 
     EmployeeModel updateEmployeeDetails(Long id, EmployeeDTO employeeDTO);
 

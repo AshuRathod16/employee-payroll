@@ -31,14 +31,20 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public List<EmployeeModel> getAllEmployeeData() {
-        List<EmployeeModel> getEmployee = employeeRepository.findAll();
-        if (getEmployee.size() > 0) {
-            return getEmployee;
-        } else {
-            throw new EmployeeNotFoundException(400, "Employee Not Found");
+    public List<EmployeeModel> getAllEmployeeData(String token) {
+        Long empId = tokenUtil.decodeToken(token);
+        Optional<EmployeeModel> isEmployeePresent = employeeRepository.findById(empId);
+        if (isEmployeePresent.isPresent()) {
+            List<EmployeeModel> getEmployee = employeeRepository.findAll();
+            if (getEmployee.size() > 0) {
+                return getEmployee;
+            } else {
+                throw new EmployeeNotFoundException(400, "No Employee Is There");
+            }
         }
+        throw new EmployeeNotFoundException(400, "Employee Not Found");
     }
+
 
     @Override
     public EmployeeModel updateEmployeeDetails(Long id, EmployeeDTO employeeDTO) {

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Employee")
+@Table(name = "employee")
 @Data
 public class EmployeeModel {
     @Id
@@ -28,7 +28,7 @@ public class EmployeeModel {
         this.firstName = employeeDTO.getFirstName();
         this.lastName = employeeDTO.getLastName();
         this.age = employeeDTO.getAge();
-        this.salary = employeeDTO.getAge();
+        this.salary = employeeDTO.getSalary();
         this.companyName = employeeDTO.getCompanyName();
         this.department = employeeDTO.getDepartment();
         this.emailId = employeeDTO.getEmailId();

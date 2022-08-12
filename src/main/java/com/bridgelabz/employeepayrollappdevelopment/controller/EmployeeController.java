@@ -21,8 +21,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/getallemployee")
-    public List<EmployeeModel> getAllEmployeeData() {
-        return employeeService.getAllEmployeeData();
+    public List<EmployeeModel> getAllEmployeeData(@RequestHeader String token) {
+        return employeeService.getAllEmployeeData(token);
     }
 
     @PutMapping("/updateemployee/{id}")
