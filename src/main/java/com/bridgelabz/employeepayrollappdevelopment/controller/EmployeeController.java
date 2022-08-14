@@ -26,13 +26,13 @@ public class EmployeeController {
     }
 
     @PutMapping("/updateemployee/{id}")
-    public EmployeeModel updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) {
-        return employeeService.updateEmployeeDetails(id, employeeDTO);
+    public EmployeeModel updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO,@RequestHeader String token) {
+        return employeeService.updateEmployeeDetails(id, employeeDTO, token);
     }
 
     @DeleteMapping("/deleteemployee/{id}")
-    public EmployeeModel deleteEmployee(@PathVariable Long id) {
-        return employeeService.deleteEmployee(id);
+    public EmployeeModel deleteEmployee(@PathVariable Long id,@RequestHeader String token) {
+        return employeeService.deleteEmployee(id, token);
     }
 
     @PostMapping("/login")
@@ -40,3 +40,4 @@ public class EmployeeController {
         return employeeService.login(emailId, password);
     }
 }
+

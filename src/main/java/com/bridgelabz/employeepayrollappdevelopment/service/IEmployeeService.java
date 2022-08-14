@@ -11,9 +11,9 @@ public interface IEmployeeService {
 
     List<EmployeeModel> getAllEmployeeData(String token);
 
-    EmployeeModel updateEmployeeDetails(Long id, EmployeeDTO employeeDTO);
+    EmployeeModel updateEmployeeDetails(Long id, EmployeeDTO employeeDTO, String toekn);
 
-    EmployeeModel deleteEmployee(Long id);
+    EmployeeModel deleteEmployee(Long id, String token);
 
     Response login(String emailId, String password);
 }

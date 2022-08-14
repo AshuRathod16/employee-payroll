@@ -22,11 +22,17 @@ public class EmployeeService implements IEmployeeService {
     @Autowired
     TokenUtil tokenUtil;
 
+    @Autowired
+    MailService mailService;
+
     @Override
     public EmployeeModel addEmployee(EmployeeDTO employeeDTO) {
         EmployeeModel employeeModel = new EmployeeModel(employeeDTO);
         employeeModel.setRegisterDate(LocalDateTime.now());
         employeeRepository.save(employeeModel);
+        String body = "Employee added Successfully with Employee id is :" + employeeModel.getId();
+        String subject = "Employee Registration Successfully";
+        mailService.send(employeeDTO.getEmailId(), body, subject);
         return employeeModel;
     }
 
@@ -47,32 +53,48 @@ public class EmployeeService implements IEmployeeService {
 
 
     @Override
-    public EmployeeModel updateEmployeeDetails(Long id, EmployeeDTO employeeDTO) {
-        Optional<EmployeeModel> isEmployeePresent = employeeRepository.findById(id);
-        if (isEmployeePresent.isPresent()) {
-            isEmployeePresent.get().setFirstName(employeeDTO.getFirstName());
-            isEmployeePresent.get().setLastName(employeeDTO.getLastName());
-            isEmployeePresent.get().setAge(employeeDTO.getAge());
-            isEmployeePresent.get().setSalary(employeeDTO.getSalary());
-            isEmployeePresent.get().setDepartment(employeeDTO.getDepartment());
-            isEmployeePresent.get().setCompanyName(employeeDTO.getCompanyName());
-            isEmployeePresent.get().setUpdatedDate(LocalDateTime.now());
-            employeeRepository.save(isEmployeePresent.get());
-            return isEmployeePresent.get();
-        } else {
-            throw new EmployeeNotFoundException(400, "Employee is Not Found");
+    public EmployeeModel updateEmployeeDetails(Long id, EmployeeDTO employeeDTO, String token) {
+        Long empId = tokenUtil.decodeToken(token);
+        Optional<EmployeeModel> isEmpPresent = employeeRepository.findById(empId);
+        if (isEmpPresent.isPresent()) {
+            Optional<EmployeeModel> isEmployeePresent = employeeRepository.findById(id);
+            if (isEmployeePresent.isPresent()) {
+                isEmployeePresent.get().setFirstName(employeeDTO.getFirstName());
+                isEmployeePresent.get().setLastName(employeeDTO.getLastName());
+                isEmployeePresent.get().setAge(employeeDTO.getAge());
+                isEmployeePresent.get().setSalary(employeeDTO.getSalary());
+                isEmployeePresent.get().setDepartment(employeeDTO.getDepartment());
+                isEmployeePresent.get().setCompanyName(employeeDTO.getCompanyName());
+                isEmployeePresent.get().setUpdatedDate(LocalDateTime.now());
+                employeeRepository.save(isEmployeePresent.get());
+                String body = "Employee Updated Successfully with Employee id is :" + isEmployeePresent.get().getId();
+                String subject = "Employee Updated Successfully..";
+                mailService.send(employeeDTO.getEmailId(), body, subject);
+                return isEmployeePresent.get();
+            } else {
+                throw new EmployeeNotFoundException(400, "Employee is Not Found");
+            }
         }
+        throw new EmployeeNotFoundException(400, "Wrong token");
     }
 
     @Override
-    public EmployeeModel deleteEmployee(Long id) {
-        Optional<EmployeeModel> deleteEmployee = employeeRepository.findById(id);
-        if (deleteEmployee.isPresent()) {
-            employeeRepository.delete(deleteEmployee.get());
-            return deleteEmployee.get();
-        } else {
-            throw new EmployeeNotFoundException(400, "Employee Not Found");
+    public EmployeeModel deleteEmployee(Long id, String token) {
+        Long empId = tokenUtil.decodeToken(token);
+        Optional<EmployeeModel> isEmpPresent = employeeRepository.findById(empId);
+        if (isEmpPresent.isPresent()) {
+            Optional<EmployeeModel> deleteEmployee = employeeRepository.findById(id);
+            if (deleteEmployee.isPresent()) {
+                employeeRepository.delete(deleteEmployee.get());
+                String body = "Employee Deleted Successfully with Employee id is :" + isEmpPresent.get().getId();
+                String subject = "Employee Deleted..";
+                mailService.send(isEmpPresent.get().getEmailId(), body, subject);
+                return deleteEmployee.get();
+            } else {
+                throw new EmployeeNotFoundException(400, "Employee is Not Found");
+            }
         }
+        throw new EmployeeNotFoundException(400, "Token is wrong");
     }
 
     @Override
@@ -88,4 +110,5 @@ public class EmployeeService implements IEmployeeService {
         }
         throw new EmployeeNotFoundException(400, "Employee is not found");
     }
+
 }
