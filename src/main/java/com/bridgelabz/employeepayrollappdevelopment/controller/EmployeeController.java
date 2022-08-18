@@ -16,8 +16,9 @@ public class EmployeeController {
     IEmployeeService employeeService;
 
     @PostMapping("/addemployee")
-    public EmployeeModel addEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        return employeeService.addEmployee(employeeDTO);
+    public EmployeeModel addEmployee(@RequestBody EmployeeDTO employeeDTO,
+                                     @RequestParam Long departmentId) {
+        return employeeService.addEmployee(employeeDTO, departmentId);
     }
 
     @GetMapping("/getallemployee")
@@ -26,8 +27,9 @@ public class EmployeeController {
     }
 
     @PutMapping("/updateemployee/{id}")
-    public EmployeeModel updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO,@RequestHeader String token) {
-        return employeeService.updateEmployeeDetails(id, employeeDTO, token);
+    public EmployeeModel updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO
+            , @RequestHeader String token, @RequestParam Long departmentId) {
+        return employeeService.updateEmployeeDetails(id, employeeDTO, token, departmentId);
     }
 
     @DeleteMapping("/deleteemployee/{id}")

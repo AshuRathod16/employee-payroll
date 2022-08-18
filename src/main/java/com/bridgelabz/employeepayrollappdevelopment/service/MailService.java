@@ -1,5 +1,6 @@
 package com.bridgelabz.employeepayrollappdevelopment.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.mail.*;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.Properties;
 
 @Component
+@Slf4j
 public class MailService {
     public static void send(String toEmail, String body, String subject) {
         final String fromEmail = System.getenv("Email");

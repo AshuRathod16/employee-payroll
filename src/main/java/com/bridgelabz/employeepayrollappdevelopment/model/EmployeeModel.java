@@ -18,11 +18,12 @@ public class EmployeeModel {
     private int age;
     private long salary;
     private String companyName;
-    private String department;
     private String emailId;
     private String password;
     private LocalDateTime registerDate;
     private LocalDateTime updatedDate;
+    @OneToOne
+    private DepartmentModel department;
 
     public EmployeeModel(EmployeeDTO employeeDTO) {
         this.firstName = employeeDTO.getFirstName();
@@ -30,7 +31,6 @@ public class EmployeeModel {
         this.age = employeeDTO.getAge();
         this.salary = employeeDTO.getSalary();
         this.companyName = employeeDTO.getCompanyName();
-        this.department = employeeDTO.getDepartment();
         this.emailId = employeeDTO.getEmailId();
         this.password = employeeDTO.getPassword();
     }
