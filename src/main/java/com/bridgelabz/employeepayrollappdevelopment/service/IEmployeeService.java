@@ -16,4 +16,12 @@ public interface IEmployeeService {
     EmployeeModel deleteEmployee(Long id, String token);
 
     Response login(String emailId, String password);
+
+    List<EmployeeModel> sorting();
+
+    List<EmployeeModel> findByCompanyName(String companyName);
+
+    List<EmployeeModel> findByFirstName(String firstName);
+
+    List<EmployeeModel> orderByLastName();
 }

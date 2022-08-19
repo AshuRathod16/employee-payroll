@@ -33,13 +33,33 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/deleteemployee/{id}")
-    public EmployeeModel deleteEmployee(@PathVariable Long id,@RequestHeader String token) {
+    public EmployeeModel deleteEmployee(@PathVariable Long id, @RequestHeader String token) {
         return employeeService.deleteEmployee(id, token);
     }
 
     @PostMapping("/login")
     public Response login(@RequestParam String emailId, @RequestParam String password) {
         return employeeService.login(emailId, password);
+    }
+
+    @GetMapping("/sortingByFirstName")
+    public List<EmployeeModel> sortingByFirstName() {
+        return employeeService.sorting();
+    }
+
+    @GetMapping("/findByCompanyName")
+    public List<EmployeeModel> findByCompanyName(@RequestParam String companyName) {
+        return employeeService.findByCompanyName(companyName);
+    }
+
+    @GetMapping("/findByFirstName")
+    public List<EmployeeModel> findByName(@RequestParam String firstName) {
+        return employeeService.findByFirstName(firstName);
+    }
+
+    @GetMapping("/orderByLatName")
+    public List<EmployeeModel> orderByLastName() {
+        return employeeService.orderByLastName();
     }
 }
 

@@ -6,6 +6,7 @@ import com.bridgelabz.employeepayrollappdevelopment.service.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public class DepartmentController {
     IDepartmentService departmentService;
 
     @PostMapping("/addDepartment")
-    public DepartmentModel addDepartment(@RequestBody DepartmentDTO departmentDTO) {
+    public DepartmentModel addDepartment(@Valid @RequestBody DepartmentDTO departmentDTO) {
         return departmentService.addDepartment(departmentDTO);
     }
 
